@@ -1,22 +1,23 @@
 import './Column.scss';
-import Task from '../Task/Task';
+import Card from '../Card/Card';
+import {mapOder} from '../../utilities/sorts';
 
-const Column = ()=>{
+const Column = (props) =>{
+
+    const { column } = props;
+    const cards = mapOder(column.cards, column.cardOrder, 'id');
+
     return(
         <>
             <div className="column">
-                <header>Brainstorn</header>
-                <ul className="task-list">
-                    <Task/>
-                    <li className="task-item">second</li>
-                    <li className="task-item">third</li>
-                    <li className="task-item">fourth</li>
-                    <li className="task-item">fifth</li>
-                    <li className="task-item">sixth</li>
-                    <li className="task-item">seventh</li>
-                    <li className="task-item">eighth</li>
-                    <li className="task-item">thirteenth</li>
-                    <li className="task-item">eighth</li>
+                <header>{column.title}</header>
+                <ul className="card-list">
+                    {cards && cards.length > 0 && cards.map((card, index) =>{
+                        return (
+                            <Card key={card.id} card={card}/>
+                        )
+                    })}
+                    
                 </ul>
                 <footer>Add another card</footer>
                 </div>
